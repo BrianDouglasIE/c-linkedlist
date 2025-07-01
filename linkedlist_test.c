@@ -20,12 +20,26 @@ void test_linkedlist() {
   assert(IntNode_length(&list) == 4);
   assert(list->next->value == 100);
 
+  IntNode_delete(&list, 1);
+  IntNode_delete(&list, -1);
+  IntNode_delete(&list, 99);
+  assert(IntNode_length(&list) == 3);
+  assert(list->next->value == 1);
+
+  assert(IntNode_get(&list, 0)->value == 0);
+  assert(IntNode_get(&list, 1)->value == 1);
+  assert(IntNode_get(&list, -1) == NULL);
+  assert(IntNode_get(&list, 99) == NULL);
+
   IntNode *head = list;
   while (head != NULL) {
     printf("%d -> ", head->value);
     head = head->next;
   }
   printf("NULL \n");
+
+  IntNode_free(&list);
+  assert(list == NULL);
 }
 
 int main() {
